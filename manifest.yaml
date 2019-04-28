@@ -1,0 +1,52 @@
+timezone:
+  files:
+    file: /etc/localtime
+    template: timezone.tmpl
+
+apache:
+  packages:
+    install:
+    - apache2
+    - php
+  depends:
+  - timezone
+  service:
+  - apache2: start
+  
+index_html:
+  files:
+    file: /var/www/html/index.html
+    delete: true
+  depends:
+  - apache
+
+index_php:
+  files:
+    file: /var/www/html/index.php
+    template: index.php.tmpl
+    owner: root
+    group: root
+    perms: 0711
+  depends:
+  - apache
+
+ntpd:
+  packages:
+    install:
+    - openntpd
+  service:
+  - openntpd: start
+
+ntp_conf:
+  files:
+    file: /etc/ntp.conf
+    template: ntp.conf.tmpl
+  depends:
+  - ntpd
+  service:
+  - ntpd: restart
+
+zsh:
+  packages:
+    remove:
+    - zsh
