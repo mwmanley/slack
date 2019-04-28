@@ -22,7 +22,7 @@ class PackageMgr():
     def install_package(self, pkg):
         # install.  If we are already installed, then yay
         # some packages require input, so we'll have to stick a timeout
-        if self.check_if_installed(pkg) == 0:
+        if self.check_if_installed(pkg) == 1:
             return True
         self.refresh_apt_cache()
         try:
