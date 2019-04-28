@@ -7,7 +7,7 @@ apache:
   packages:
     install:
     - apache2
-    - php
+    - libapache2-mod-php5
   depends:
   - timezone
   service:
@@ -26,7 +26,7 @@ index_php:
     template: index.php.tmpl
     owner: root
     group: root
-    perms: 0711
+    perms: 0755
   depends:
   - apache
 
@@ -50,3 +50,4 @@ zsh:
   packages:
     remove:
     - zsh
+    - zsh-common
